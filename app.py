@@ -1,6 +1,5 @@
 #
 # XO Game
-# By using array and some AI
 #
 
 players = {
