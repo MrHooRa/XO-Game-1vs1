@@ -111,7 +111,7 @@ def choose_box(player_id, player_letter, player_id_next_round):
     else:
         print("\t\tTry again!")
         choose_box(player_id, player_letter, player_id_next_round)
-    if box < 10 and box != 0:
+    if 0 < box < 10:
         if game[box] == "-":
             game[box] = player_letter
         else:
