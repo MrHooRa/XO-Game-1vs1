@@ -1,6 +1,7 @@
 #
 # XO Game
-# By using array and some AI
+# In cmd xD
+# By MrHora | Github page -> https://github.com/MrHooRa
 #
 
 game = {
@@ -28,11 +29,26 @@ game = {
 def start(Type=0):
     if Type == 1:
         print("\n\t\t\t\tWelcome To XO Game\n")
+        mode = str(input(
+            "Game mode:-\n\t[1]: player vs player\n\t[2]: player vs pc\n\t[3]: pc vs pc\n> "))
+        while not mode.isdigit():
+            mode = str(input(
+                "Game mode:-\n\t[1]: player vs player\n\t[2]: player vs pc\n\t[3]: pc vs pc\n> "))
+        if mode == 1:
+            game['setting']['mode'] = 1
+        elif mode == 2:
+            game['setting']['mode'] = 2
+        elif mode == 3:
+            game['setting']['mode'] = 3
+
     player_1_nickname = input("\n\tPlayer 1 nickname: ")
-    player_2_nickname = input("\n\tPlayer 2 nickname: ")
+    
+    if game['setting']['mode'] == 1:
+        player_2_nickname = input("\n\tPlayer 2 nickname: ")
+        
     if player_1_nickname != "":
         game['players']["player1"] = player_1_nickname
-    if player_2_nickname != "":
+    if player_2_nickname != "" and mode == 1:
         game['players']["player2"] = player_2_nickname
     game_board()
     choose_box(1, "X", 2)
@@ -46,6 +62,7 @@ def game_board():
 def restart():
     action = input("Play again? Yes[1] No[2]: ")
     if action == "Yes" or action == "yes" or action == "1":
+        game['setting']['mode'] = 1
         game['box'][1] = '-'
         game['box'][2] = '-'
         game['box'][3] = '-'
@@ -109,9 +126,11 @@ def check(player, player_id=''):
 
 def choose_box(player_id, player_letter, next_player_id):
     if player_id == 1:
-        box = input("\n\t{0} round ({1}): ".format(game['players']["player1"], "X"))
+        box = input("\n\t{0} round ({1}): ".format(
+            game['players']["player1"], "X"))
     elif player_id == 2:
-        box = input("\n\t{0} round ({1}): ".format(game['players']["player2"], "O"))
+        box = input("\n\t{0} round ({1}): ".format(
+            game['players']["player2"], "O"))
 
     if box.isdigit() and box != "":
         box = int(box)
