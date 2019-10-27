@@ -3,12 +3,11 @@
 # By using array and some AI
 #
 
-players = {
-    "player1": "Knight",
-    "player2": "FireMaN"
-}
-
 game = {
+    'players': {
+        "player1": "Knight",
+        "player2": "FireMaN"
+    },
     'setting': {
         'mode': 1
     },
@@ -32,9 +31,9 @@ def start(Type=0):
     player_1_nickname = input("\n\tPlayer 1 nickname: ")
     player_2_nickname = input("\n\tPlayer 2 nickname: ")
     if player_1_nickname != "":
-        players["player1"] = player_1_nickname
+        game['players']["player1"] = player_1_nickname
     if player_2_nickname != "":
-        players["player2"] = player_2_nickname
+        game['players']["player2"] = player_2_nickname
     game_board()
     choose_box(1, "X", 2)
 
@@ -64,11 +63,11 @@ def restart():
 
 def when_win(player_id):
     if player_id == 1:
-        print("\n\n\t {0} win!".format(players['player1']))
+        print("\n\n\t {0} win!".format(game['players']['player1']))
         print("\tI hope you enjoyed :D\n")
         again = 1
     if player_id == 2:
-        print("\n\n\t {0} win!".format(players['player2']))
+        print("\n\n\t {0} win!".format(game['players']['player2']))
         print("\tI hope you enjoyed :D\n")
         again = 1
     if again == 1:
@@ -110,9 +109,9 @@ def check(player, player_id=''):
 
 def choose_box(player_id, player_letter, next_player_id):
     if player_id == 1:
-        box = input("\n\t{0} round ({1}): ".format(players["player1"], "X"))
+        box = input("\n\t{0} round ({1}): ".format(game['players']["player1"], "X"))
     elif player_id == 2:
-        box = input("\n\t{0} round ({1}): ".format(players["player2"], "O"))
+        box = input("\n\t{0} round ({1}): ".format(game['players']["player2"], "O"))
 
     if box.isdigit() and box != "":
         box = int(box)
