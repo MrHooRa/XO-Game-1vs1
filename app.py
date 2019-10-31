@@ -29,26 +29,38 @@ game = {
 def start(Type=0):
     if Type == 1:
         print("\n\t\t\t\tWelcome To XO Game\n")
-        mode = str(input(
-            "Game mode:-\n\t[1]: player vs player\n\t[2]: player vs pc\n\t[3]: pc vs pc\n> "))
-        while not mode.isdigit():
-            mode = str(input(
-                "Game mode:-\n\t[1]: player vs player\n\t[2]: player vs pc\n\t[3]: pc vs pc\n> "))
-        if mode == 1:
+        mode = input(
+            "Game mode:-\n\t[1]: player vs player\n\t[2]: player vs pc\n\t[3]: pc vs pc\n\t[4]: Exit\n> ")
+        while not mode.isdigit() or int(mode) < 1 or int(mode) > 4:
+            mode = input(
+                "Game mode:-\n\t[1]: player vs player\n\t[2]: player vs pc\n\t[3]: pc vs pc\n\t[4]: Exit\n> ")
+        if int(mode) == 1:
             game['setting']['mode'] = 1
-        elif mode == 2:
+        elif int(mode) == 2:
             game['setting']['mode'] = 2
-        elif mode == 3:
+            # DO NOT FORGET TO REMOVE UNDER THIS LINE!! #
+            print("Sorry, but this feature doesn't work yet!")
+            exit()
+            # DO NOT FORGET TO REMOVE ABOVE THIS LINE!! #
+        elif int(mode) == 3:
             game['setting']['mode'] = 3
+            # DO NOT FORGET TO REMOVE UNDER THIS LINE!! #
+            print("Sorry, but this feature doesn't work yet!")
+            exit()
+            # DO NOT FORGET TO REMOVE ABOVE THIS LINE!! #
+        elif int(mode) == 4:
+            exit()
 
     player_1_nickname = input("\n\tPlayer 1 nickname: ")
-    
+
     if game['setting']['mode'] == 1:
         player_2_nickname = input("\n\tPlayer 2 nickname: ")
-        
+    else:
+        player_2_nickname = game['players']["player2"]
+
     if player_1_nickname != "":
         game['players']["player1"] = player_1_nickname
-    if player_2_nickname != "" and mode == 1:
+    if player_2_nickname != "" and int(mode) == 1:
         game['players']["player2"] = player_2_nickname
     game_board()
     choose_box(1, "X", 2)
@@ -132,14 +144,16 @@ def choose_box(player_id, player_letter, next_player_id):
         box = input("\n\t{0} round ({1}): ".format(
             game['players']["player2"], "O"))
 
-    if box.isdigit() and box != "":
-        box = int(box)
-    else:
-        print("\t\tTry again!")
-        choose_box(player_id, player_letter, next_player_id)
-    if 0 < box < 10:
-        if game['box'][box] == "-":
-            game['box'][box] = player_letter
+    while not box.isdigit() or box == "":
+        if player_id == 1:
+            box = input("\n\t{0} round ({1}): ".format(
+                game['players']["player1"], "X"))
+        elif player_id == 2:
+            box = input("\n\t{0} round ({1}): ".format(
+                game['players']["player2"], "O"))
+    if 0 < int(box) < 10:
+        if game['box'][int(box)] == "-":
+            game['box'][int(box)] = player_letter
         else:
             print("\t\tYou can NOT choose this box! Try again!")
             choose_box(player_id, player_letter, next_player_id)
@@ -149,6 +163,4 @@ def choose_box(player_id, player_letter, next_player_id):
         print("\t\tYou can NOT choose this box! Try again!")
         choose_box(player_id, player_letter, next_player_id)
 
-
-# Start form here!
 start(1)
