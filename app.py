@@ -3,7 +3,7 @@
 # In cmd xD
 # By MrHora | Github page -> https://github.com/MrHooRa
 #
-
+import random
 game = {
     'players': {
         "player1": "Knight",
@@ -28,28 +28,24 @@ game = {
 
 def start(Type=0):
     if Type == 1:
-        print("\n\t\t\t\tWelcome To XO Game\n")
+        print("\n\t\t\t\tWelcome To XO Game")
+    mode = input(
+        "\nGame mode:-\n\t[1]: player vs player\n\t[2]: player vs pc\n\t[3]: pc vs pc\n\t[4]: Exit\n> ")
+    while not mode.isdigit() or int(mode) < 1 or int(mode) > 4:
         mode = input(
             "Game mode:-\n\t[1]: player vs player\n\t[2]: player vs pc\n\t[3]: pc vs pc\n\t[4]: Exit\n> ")
-        while not mode.isdigit() or int(mode) < 1 or int(mode) > 4:
-            mode = input(
-                "Game mode:-\n\t[1]: player vs player\n\t[2]: player vs pc\n\t[3]: pc vs pc\n\t[4]: Exit\n> ")
-        if int(mode) == 1:
-            game['setting']['mode'] = 1
-        elif int(mode) == 2:
-            game['setting']['mode'] = 2
-            # DO NOT FORGET TO REMOVE UNDER THIS LINE!! #
-            print("Sorry, but this feature doesn't work yet!")
-            exit()
-            # DO NOT FORGET TO REMOVE ABOVE THIS LINE!! #
-        elif int(mode) == 3:
-            game['setting']['mode'] = 3
-            # DO NOT FORGET TO REMOVE UNDER THIS LINE!! #
-            print("Sorry, but this feature doesn't work yet!")
-            exit()
-            # DO NOT FORGET TO REMOVE ABOVE THIS LINE!! #
-        elif int(mode) == 4:
-            exit()
+    if int(mode) == 1:
+        game['setting']['mode'] = 1
+    elif int(mode) == 2:
+        game['setting']['mode'] = 2
+    elif int(mode) == 3:
+        game['setting']['mode'] = 3
+        # DO NOT FORGET TO REMOVE UNDER THIS LINE!! #
+        print("Sorry, but this feature doesn't work yet!")
+        start()
+        # DO NOT FORGET TO REMOVE ABOVE THIS LINE!! #
+    elif int(mode) == 4:
+        exit()
 
     player_1_nickname = input("\n\tPlayer 1 nickname: ")
 
@@ -141,8 +137,20 @@ def choose_box(player_id, player_letter, next_player_id):
         box = input("\n\t{0} round ({1}): ".format(
             game['players']["player1"], "X"))
     elif player_id == 2:
-        box = input("\n\t{0} round ({1}): ".format(
-            game['players']["player2"], "O"))
+        if game['setting']['mode'] == 1:
+            box = input("\n\t{0} round ({1}): ".format(
+                game['players']["player2"], "O"))
+        elif game['setting']['mode'] == 2:
+            box=0
+            i = 1
+            box_temp = []
+            while i <= 9:
+                if game['box'][i] == "-":
+                    box_temp.append(i)
+                i += 1
+            if box_temp:
+                box = random.choice(box_temp)
+                box = str(box)
 
     while not box.isdigit() or box == "":
         if player_id == 1:
