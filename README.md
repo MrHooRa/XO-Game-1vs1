@@ -1,4 +1,4 @@
-# XO-Game-1vs1
+# XO-Game
 
 Classic Tic Tac Toe with 3 modes:
 <br>[1]: Player VS Player
